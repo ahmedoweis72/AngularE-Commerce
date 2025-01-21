@@ -9,5 +9,6 @@ export interface Product {
     price?: number;
     images?: string[];
     thumbnail?: string;
-    stock?:number
+    stock?:number;
+    quantity?:number
 }
