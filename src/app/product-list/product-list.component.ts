@@ -5,7 +5,6 @@ import { ProductItemComponent } from '../product-item/product-item.component';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { CartService } from '../services/cart.service';
-import { CartItem } from '../interfaces/cart-item';
 @Component({
   selector: 'app-product-list',
   imports: [ProductItemComponent],
@@ -27,7 +26,7 @@ export class ProductListComponent {
 
 // }
   products: Product[] = [];
-  product:Product={};
+
   constructor(private router: Router, private _DataService: DataService,private cartService:CartService) {}
   showDetails(id: number | undefined) {
     this.router.navigate(['/desc'], { queryParams: { id } });
@@ -36,18 +35,10 @@ export class ProductListComponent {
     this._DataService
       .getProduct()
       .subscribe((res) => (this.products = res.products));
-    
+      
   }
-  addToCart(product: Product) {
-    const cartItem: any = {
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      quantity: 1,
-      image: product.images?.[0] ?? '',
-      stock: product.stock
-    };
-    
-    this.cartService.addToCart(cartItem);
+
+  addToCart(product:Product) {
+    this.cartService.addToCart(product);  
   }
 }

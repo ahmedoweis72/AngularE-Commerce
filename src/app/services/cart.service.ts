@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../interfaces/cart-item';
 import { Product } from '../interfaces/product';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   items: any[] = [];
   private cartSubject = new BehaviorSubject<CartItem[]>([]);
+  cartUpdated = new EventEmitter<void>();
+
   constructor() {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       this.items = JSON.parse(savedCart);
       this.cartSubject.next(this.items);
-      
     }
   }
 
@@ -23,8 +24,8 @@ export class CartService {
   }
 
   addToCart(product: Product) {
-    console.log("hiiii");
-    
+    console.log('hiiii');
+
     const item = this.items.find((i) => i.id === product.id);
     if (item) {
       item.quantity++;
@@ -41,25 +42,34 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.items));
     this.cartSubject.next(this.items);
     console.log(item);
-    
+
     // this.updateCart();
   }
 
   removeFromCart(id: number) {
     this.items = this.items.filter((item) => item.id !== id);
-    // this.updateCart();
+    this.updateCart();
   }
 
   updateQuantity(id: number, quantity: number) {
+    const item = this.items.find((i) => i.id === id);
+    if (item) {
+      item.quantity = quantity;
+      this.updateCart();
+    }
   }
 
-  // private updateCart() {
-  //   localStorage.setItem('cart', JSON.stringify(this.items));
-  //   this.cartSubject.next(this.items);
-  // }
+  private updateCart() {
+    localStorage.setItem('cart', JSON.stringify(this.items));
+    this.cartSubject.next(this.items);
+    this.cartUpdated.emit();
+  }
 
   getTotal() {
-    return this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return this.items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
   }
 
   getItemCount() {
@@ -68,6 +78,6 @@ export class CartService {
 
   clearCart() {
     this.items = [];
-    // this.updateCart();
+    this.updateCart();
   }
 }
