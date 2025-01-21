@@ -1,0 +1,11 @@
+#product .btn
+{
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 1s ;
+}
+#product:hover .btn
+{
+    transform: translateY(0%);
+    opacity: 1;
+}

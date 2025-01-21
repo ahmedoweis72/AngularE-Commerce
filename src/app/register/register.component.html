@@ -1,0 +1,112 @@
+<div class="container p-5">
+  <h1 class="text-center">Register</h1>
+  <div class="w-75 mx-auto p-5">
+    <form [formGroup]="registerForm" (ngSubmit)="handleSubmitForm()">
+      <div class="row mb-3">
+        <label for="name" class="col-sm-2 col-form-label">Name</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            name="email"
+            class="form-control"
+            id="name"
+            aria-describedby="Uname"
+            formControlName="Uname"
+          />
+          @if (formControls['Uname']?.touched && formControls['Uname']?.invalid) {
+            @if (formControls['Uname'].hasError('required')) {
+             <div id="recipeHelp" class="form-text text-danger">Name is required.</div>
+            }
+          }
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            id="inputEmail3"
+            aria-describedby="email"
+            formControlName="email"
+          />
+          @if (formControls['email']?.touched && formControls['email']?.invalid) {
+            @if (formControls['email'].hasError('required')) {
+             <div id="recipeHelp" class="form-text text-danger">Email is required.</div>
+            }
+          }@else if (formControls['email'].hasError('email')) {
+            <div id="recipeHelp" class="form-text text-danger">Email format is invalid.</div>
+          }
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="UserName" class="col-sm-2 col-form-label">UserName</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            name="UserName"
+            id="UserName"
+            aria-describedby="UserName"
+            formControlName="UserName"
+          />
+          @if (formControls['UserName']?.touched && formControls['UserName']?.invalid) {
+            @if (formControls['UserName'].hasError('required')) {
+             <div id="recipeHelp" class="form-text text-danger">UserName is required.</div>
+            }
+          }
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="password"
+            aria-describedby="password"
+            formControlName="password"
+          />
+          @if (formControls['password']?.touched && formControls['password']?.invalid) {
+            @if (formControls['password'].hasError('required')) {
+             <div id="recipeHelp" class="form-text text-danger">Password is required.</div>
+            }@else if (formControls['password'].hasError('pattern')) {
+              <div id="recipeHelp" class="form-text text-danger">Password format is invalid.</div>
+            }
+          }
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="repassword" class="col-sm-2 col-form-label"
+          >Re-Password</label
+        >
+        <div class="col-sm-10">
+          <input
+            type="password"
+            name="repassword"
+            class="form-control"
+            id="repassword"
+            aria-describedby="repassword"
+            formControlName="repassword"
+          />
+          @if (formControls['repassword']?.touched && formControls['repassword']?.invalid) {
+            @if (formControls['repassword'].hasError('required')) {
+             <div id="recipeHelp" class="form-text text-danger">Password is required.</div>
+            }@else if (formControls['repassword'].hasError('pattern')) {
+              <div id="recipeHelp" class="form-text text-danger">Password format is invalid.</div>
+            }
+          }
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="registerForm.invalid"
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+</div>

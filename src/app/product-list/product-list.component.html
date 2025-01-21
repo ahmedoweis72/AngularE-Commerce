@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row g-3">
+      @for (product of products; track product.id) {
+    <div id="product" class="col-3 g-3 shadow my-4"  >
+      <app-product-item [product]="product" (click)="showDetails(product.id)"/>
+      @if (product.stock) {
+
+        <button   class="btn btn-success  w-100" (click)="addToCart(product)">Add to Cart</button>
+      }
+    </div>
+    
+}
+  </div>
+</div>

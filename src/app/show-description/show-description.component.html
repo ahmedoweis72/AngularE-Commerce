@@ -1,0 +1,19 @@
+<div class="container d-flex p-5 border shadow rounded-3 mt-3">
+    <div class="w-50">
+        <img [src]="this.prodDes.thumbnail" alt="">
+    </div>
+  <div class="w-50 p-5 ">
+    @if (this.prodDes.availabilityStatus === 'In Stock') {
+        <span class="badge text-bg-success">{{this.prodDes.availabilityStatus}}</span>
+    } @else if (this.prodDes.availabilityStatus === 'Low Stock') {
+        <span class="badge text-bg-warning">{{this.prodDes.availabilityStatus}}</span>
+    } @else {
+        <span class="badge text-bg-danger">{{this.prodDes.availabilityStatus}}</span>
+    }
+    <h1>{{this.prodDes.title}}</h1>
+    <h1>{{this.prodDes.price}}EGP</h1>
+    <p>{{ this.prodDes.description }}</p>
+   
+    <button class="btn btn-success">Add To Cart</button>
+  </div>
+</div>
